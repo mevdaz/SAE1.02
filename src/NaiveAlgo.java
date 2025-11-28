@@ -24,7 +24,7 @@ class NaiveAlgo {
 
     ArrayList<Integer> naiveAlgo(ArrayList<Character> text, String pattern) {
         ArrayList<Integer> tab = new ArrayList<>();
-        for (int i = 0; i < text.size(); i++) {
+        for (int i = 0; i < (text.size() - pattern.length()); i++) {
             if (text.get(i) == pattern.charAt(0)) {
                 int j = 1;
                 while (j < pattern.length() && text.get(i + j) == pattern.charAt(j)) {
