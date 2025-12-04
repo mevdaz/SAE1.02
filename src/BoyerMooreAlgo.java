@@ -3,6 +3,9 @@ import java.util.Arrays;
 
 class BoyerMooreAlgo {
 
+    /** Compteur global pour mesurer l'efficacité des algorithmes */
+	long cpt;
+
     /**
      * Méthode principale pour exécuter les tests de l'algorithme de Boyer-Moore.
      */
@@ -59,7 +62,10 @@ class BoyerMooreAlgo {
 
             while (j >= 0 && texte.get(indPattern + j) == pattern.charAt(j)) {
                 j--;
+                
             }
+            
+            cpt++; // incrémentation du compteur
 
             if (j < 0) {
                 result.add(indPattern);
@@ -83,7 +89,7 @@ class BoyerMooreAlgo {
      */
     void testBoyerMooreAlgo() {
 
-        System.out.println("----- Tests de l'algorithme de Boyer-Moore : -----");
+        System.out.println("\n----- Tests de l'algorithme de Boyer-Moore : -----\n");
         
         ArrayList<Character> texte1 = new ArrayList<>(Arrays.asList(
             'I','l',' ','a',' ','r','e','g','a','r','d','é',' ','d','e','d','a','n','s',',',
@@ -125,7 +131,7 @@ class BoyerMooreAlgo {
 
         testCasBoyerMooreAlgo(texte3, pattern3, resultAttendu3);
 
-        System.out.println("--------------------------------------------------");
+        System.out.println("\n--------------------------------------------------\n");
 
     }
 
@@ -186,18 +192,129 @@ class BoyerMooreAlgo {
      */
     ArrayList<Character> generateSequenceText(int size) {
         char[] alphabet = { 'a', 'b', 'c', 'd'};
+        size = size/5;
 
         ArrayList<Character> text = new ArrayList<>();
 
         for (int i = 0; i < size; i++) {
-            text.add(alphabet[(int) (Math.random() * alphabet.length)]);
+
+            char lettre = alphabet[(int) (Math.random() * alphabet.length)];
+
+            for (int j = 0; j < 5; j++){
+
+                text.add(lettre);
+
+            }
         }
 
         return text;
     }
 
-    void testBoyerMooreAlgoEfficiency() {
-        
+    /**
+     * Génère une séquence de meme lettre de taille spécifiée pour tester l'efficacité.
+     * @param size la taille du texte à générer
+     * @param lettre la lettre à répéter
+     * @return une liste de caractères représentant le texte généré
+     */
+    ArrayList<Character> generateLettreText(int size, char lettre) {
+
+        ArrayList<Character> text = new ArrayList<>();
+
+        for (int i = 0; i < size; i++) {
+            text.add(lettre);
+        }
+
+        return text;
     }
 
+    /**
+     * Teste l'efficacité de l'algorithme de Boyer-Moore.
+     */
+    void testBoyerMooreAlgoEfficiency() {
+
+        long t1, t2, diffT;
+
+        System.out.println("----- Tests d'efficacité de l'algorithme de Boyer-Moore : -----\n");
+
+        int size = 1000;
+        String pattern = "abcde";
+
+        System.out.println(" -- Texte avec alphabet restreint {a,b,c,d} et motif \"abcde\"\n");
+
+        for (int i = 1; i <= 6; i++) {
+
+            ArrayList<Character> texte = generateSequenceText(size);
+
+            System.out.println("Taille du texte : " + size);
+            cpt = 0; // réinitialisation du compteur
+
+            t1 = System.nanoTime();
+            boyerMooreAlgo(texte, pattern);
+            t2 = System.nanoTime();
+
+            diffT = t2 - t1; // en nanosecondes
+
+            System.out.println("Temps d'exécution : " + diffT + " ns");
+            System.out.println("Nombre d'opérations (cpt) : " + cpt);
+
+            System.out.println();
+
+            size = size * 2;
+        }
+
+        System.out.println(" -- Texte avec alphabet restreint {a} et motif \"ab\"\n");
+
+        size = 1000;
+        pattern = "ab";
+
+        for (int i = 1; i <= 6; i++) {
+
+            ArrayList<Character> texte = generateLettreText(size, 'a');
+
+            System.out.println("Taille du texte : " + size);
+            cpt = 0; // réinitialisation du compteur
+
+            t1 = System.nanoTime();
+            boyerMooreAlgo(texte, pattern);
+            t2 = System.nanoTime();
+
+            diffT = t2 - t1; // en nanosecondes
+
+            System.out.println("Temps d'exécution : " + diffT + " ns");
+            System.out.println("Nombre d'opérations (cpt) : " + cpt);
+
+            System.out.println();
+
+            size = size * 2;
+        }
+
+        System.out.println(" -- Texte avec alphabet entier aleatoire et motif \"abf\"\n");
+
+        size = 1000;
+        pattern = "abf";
+
+        for (int i = 1; i <= 6; i++) {
+
+            ArrayList<Character> texte = generateRandomText(size);
+
+            System.out.println("Taille du texte : " + size);
+            cpt = 0; // réinitialisation du compteur
+
+            t1 = System.nanoTime();
+            boyerMooreAlgo(texte, pattern);
+            t2 = System.nanoTime();
+
+            diffT = t2 - t1; // en nanosecondes
+
+            System.out.println("Temps d'exécution : " + diffT + " ns");
+            System.out.println("Nombre d'opérations (cpt) : " + cpt);
+
+            System.out.println();
+
+            size = size * 2;
+        }
+
+        System.out.println("--------------------------------------------------");
+        
+    }
 }
