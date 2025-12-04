@@ -9,9 +9,6 @@ class KMPAlgo {
         
         ArrayList<Integer> result = new ArrayList<>();
 
-        int m = pattern.length();
-        int n = texte.size();
-
         return result;
     }
 
