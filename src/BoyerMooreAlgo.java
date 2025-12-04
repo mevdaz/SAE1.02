@@ -78,6 +78,9 @@ class BoyerMooreAlgo {
         return result;
     }
 
+    /** 
+     * Méthode de test pour l'algorithme de Boyer-Moore.
+     */
     void testBoyerMooreAlgo() {
 
         System.out.println("----- Tests de l'algorithme de Boyer-Moore : -----");
@@ -126,6 +129,12 @@ class BoyerMooreAlgo {
 
     }
 
+    /** 
+     * Teste un cas spécifique de l'algorithme de Boyer-Moore.
+     * @param texte le texte dans lequel rechercher le motif
+     * @param pattern le motif à rechercher
+     * @param resultAttendu la liste des indices attendus pour les occurrences du motif
+     */
     void testCasBoyerMooreAlgo(ArrayList<Character> texte, String pattern, ArrayList<Integer> resultAttendu) {
         
         ArrayList<Integer> result = boyerMooreAlgo(texte, pattern);
@@ -152,9 +161,31 @@ class BoyerMooreAlgo {
         
     }
 
+    /**
+     * Génère un texte aléatoire de la taille spécifiée.
+     * @param size la taille du texte à générer
+     * @return une liste de caractères représentant le texte généré
+     */
     ArrayList<Character> generateRandomText(int size) {
         char[] alphabet = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r',
                 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
+
+        ArrayList<Character> text = new ArrayList<>();
+
+        for (int i = 0; i < size; i++) {
+            text.add(alphabet[(int) (Math.random() * alphabet.length)]);
+        }
+
+        return text;
+    }
+
+    /**
+     * Génère un texte aléatoire avec un alphabet restreint pour tester l'efficacité.
+     * @param size la taille du texte à générer
+     * @return une liste de caractères représentant le texte généré
+     */
+    ArrayList<Character> generateSequenceText(int size) {
+        char[] alphabet = { 'a', 'b', 'c', 'd'};
 
         ArrayList<Character> text = new ArrayList<>();
 
