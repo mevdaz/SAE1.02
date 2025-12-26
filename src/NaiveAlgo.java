@@ -38,4 +38,22 @@ class NaiveAlgo {
         return tab;
     }
 
+    void testNaiveAlgo() {
+        System.out.println("Test NaiveAlgo");
+        ArrayList<Character> text = generateText(100000);
+        TestCasNaiveAlgo(text, "toto");
+        ArrayList<Character> text2 = generateText(100000);
+        TestCasNaiveAlgo(text2, "tata");
+    }
+
+    void TestCasNaiveAlgo(ArrayList<Character> text, String pattern) {
+        System.out.println("Text : " + text);
+        System.out.println("Pattern : " + pattern);
+        ArrayList<Integer> tab = naiveAlgo(text, pattern);
+        System.out.println("Tab : " + tab);
+    }
+
+    void testNaiveAlgoEfficiency() {
+
+    }
 }
