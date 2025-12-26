@@ -1,13 +1,50 @@
 import java.util.ArrayList;
 
+/**
+ * Implementation of the Knuth-Morris-Pratt (KMP) string matching algorithm.
+ * This class provides methods to search for all occurrences of a pattern
+ * in a given text using the KMP algorithm, as well as test methods
+ * to validate correctness and measure performance.
+ */
 class KMPAlgo {
 
+    /**
+     * Main method that launches all tests.
+     * It runs both correctness tests and performance tests.
+     */
     void principal() {
-        System.out.println("Test KMP");
         testKmpAlgo();
         testKmpAlgoEfficiency();
     }
 
+    /**
+     * Generates a random text composed of lowercase letters.
+     *
+     * @param size the length of the text to generate
+     * @return an ArrayList of characters representing the generated text
+     */
+    ArrayList<Character> generateText(int size) {
+        char[] alphabet = {
+                'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
+                'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
+        };
+
+        ArrayList<Character> text = new ArrayList<>();
+
+        for (int i = 0; i < size; i++) {
+            text.add(alphabet[(int) (Math.random() * alphabet.length)]);
+        }
+
+        return text;
+    }
+
+    /**
+     * Applies the KMP algorithm to search for a pattern in a text.
+     *
+     * @param text    the text in which the pattern is searched
+     * @param pattern the pattern to search for
+     * @return a list of indices where the pattern occurs in the text
+     */
     ArrayList<Integer> kmpAlgo(ArrayList<Character> text, String pattern) {
 
         ArrayList<Integer> result = new ArrayList<>();
@@ -21,8 +58,8 @@ class KMPAlgo {
 
         int[] pi = buildPrefixTable(pattern);
 
-        int i = 0;
-        int j = 0;
+        int i = 0; // index for text
+        int j = 0; // index for pattern
 
         while (i < n) {
 
@@ -46,6 +83,15 @@ class KMPAlgo {
         return result;
     }
 
+    /**
+     * Builds the prefix table (also called failure function or π table)
+     * for the given pattern.
+     * The prefix table indicates for each position the length of the
+     * longest proper prefix which is also a suffix.
+     *
+     * @param pattern the pattern used to build the prefix table
+     * @return an array representing the prefix table
+     */
     int[] buildPrefixTable(String pattern) {
 
         int m = pattern.length();
@@ -61,7 +107,6 @@ class KMPAlgo {
                 pi[i] = j;
                 i++;
             } else {
-
                 if (j > 0) {
                     j = pi[j - 1];
                 } else {
@@ -74,51 +119,48 @@ class KMPAlgo {
         return pi;
     }
 
+    /**
+     * Tests the correctness of the KMP algorithm
+     * using randomly generated texts and simple patterns.
+     */
     void testKmpAlgo() {
+        System.out.println("Test KMPAlgo");
 
-        ArrayList<Character> text = new ArrayList<>();
-        String s = "ABABAABCBAB";
+        ArrayList<Character> text1 = generateText(100);
+        TestCasKmpAlgo(text1, "t");
 
-        for (int k = 0; k < s.length(); k++) {
-            text.add(s.charAt(k));
-        }
-
-        String pattern = "ABABACA";
-
-        ArrayList<Integer> res = kmpAlgo(text, pattern);
-
-        System.out.println("Test KMP standard :");
-        System.out.println("Texte   : " + s);
-        System.out.println("Motif   : " + pattern);
-        System.out.println("Résultat: " + res);
-        System.out.println();
+        ArrayList<Character> text2 = generateText(100);
+        TestCasKmpAlgo(text2, "ta");
     }
 
-    void testCasKmpAlgo() {
+    /**
+     * Runs a single test case of the KMP algorithm
+     * and displays the text, the pattern, and the result.
+     *
+     * @param text    the text to analyze
+     * @param pattern the pattern to search for
+     */
+    void TestCasKmpAlgo(ArrayList<Character> text, String pattern) {
+        System.out.println("Text : " + text);
+        System.out.println("Pattern : " + pattern);
 
-        ArrayList<Character> text = new ArrayList<>();
-        String s = "ABABAABCBAB";
+        ArrayList<Integer> tab = kmpAlgo(text, pattern);
 
-        for (int k = 0; k < s.length(); k++) {
-            text.add(s.charAt(k));
-        }
-
-        String pattern = "BA";
-
-        ArrayList<Integer> res = kmpAlgo(text, pattern);
-
-        System.out.println("TEST CAS KMP :");
-        System.out.println("Texte   : " + s);
-        System.out.println("Motif   : " + pattern);
-        System.out.println("Résultat: " + res);
-        System.out.println();
+        System.out.println("Occurrences : " + tab);
     }
 
+    /**
+     * Measures the efficiency of the KMP algorithm on a large input.
+     * The text is composed of many identical characters followed by
+     * a different one, which represents a worst-case scenario
+     * for naive string matching algorithms.
+     */
     void testKmpAlgoEfficiency() {
 
         ArrayList<Character> text = new ArrayList<>();
 
-        // texte très long pour mesurer, ex : 100000 'A' puis un 'B'
+        // Very long text for performance measurement (e.g., 50,000 'A's followed by a
+        // 'B')
         int size = 50000;
         for (int i = 0; i < size; i++) {
             text.add('A');
@@ -131,9 +173,8 @@ class KMPAlgo {
         kmpAlgo(text, pattern);
         long end = System.nanoTime();
 
-        System.out.println("Test d'efficacité KMP :");
-        System.out.println("Temps (ns) : " + (end - start));
+        System.out.println("KMP efficiency test:");
+        System.out.println("Execution time (ns): " + (end - start));
         System.out.println();
     }
-
 }
