@@ -1,12 +1,8 @@
 import java.util.ArrayList;
 
-/**
- * Implementation of the Knuth-Morris-Pratt (KMP) string matching algorithm.
- * This class provides methods to search for all occurrences of a pattern
- * in a given text using the KMP algorithm, as well as test methods
- * to validate correctness and measure performance.
- */
 class KMPAlgo {
+
+    int cpt = 0;
 
     /**
      * Main method that launches all tests.
@@ -62,7 +58,7 @@ class KMPAlgo {
         int j = 0; // index for pattern
 
         while (i < n) {
-
+            cpt++;
             if (text.get(i) == pattern.charAt(j)) {
                 i++;
                 j++;
@@ -141,7 +137,7 @@ class KMPAlgo {
      * @param pattern the pattern to search for
      */
     void TestCasKmpAlgo(ArrayList<Character> text, String pattern) {
-        System.out.println("Text : " + text);
+        System.out.println("Text generé aleatoirement : ");
         System.out.println("Pattern : " + pattern);
 
         ArrayList<Integer> tab = kmpAlgo(text, pattern);
@@ -157,24 +153,39 @@ class KMPAlgo {
      */
     void testKmpAlgoEfficiency() {
 
-        ArrayList<Character> text = new ArrayList<>();
+        int n = 1000;
+        long t1, t2;
+        String pattern = "aaaaaaaaab";
 
-        // Very long text for performance measurement (e.g., 50,000 'A's followed by a
-        // 'B')
-        int size = 50000;
-        for (int i = 0; i < size; i++) {
-            text.add('A');
+        for (int i = 1; i <= 6; i++) {
+
+            // ArrayList<Character> text = generateText(n);
+            ArrayList<Character> text = new ArrayList<>();
+            for (int j = 0; j < n; j++) {
+                text.add('a');
+            }
+            text.add('b');
+
+            cpt = 0;
+            t1 = System.nanoTime();
+            kmpAlgo(text, pattern);
+            t2 = System.nanoTime();
+
+            System.out.println("\nKMP n = " + n);
+            System.out.println("Temps = " + (t2 - t1));
+            System.out.println("Comparaisons = " + cpt);
+            System.out.println("cpt / n ≈ " + (double) cpt / n);
+
+            n *= 2;
         }
-        text.add('B');
-
-        String pattern = "AAAAAAAAAAB";
-
-        long start = System.nanoTime();
-        kmpAlgo(text, pattern);
-        long end = System.nanoTime();
-
-        System.out.println("KMP efficiency test:");
-        System.out.println("Execution time (ns): " + (end - start));
-        System.out.println();
     }
+
 }
+
+// commentaire Bien que le nombre de comparaisons puisse dépasser la taille du
+// texte, il reste proportionnel à n.
+// Chaque caractère du texte est comparé au plus deux fois, ce qui garantit la
+// complexité linéaire de l’algorithme KMP.
+// meme dans le pire des cas, on aura toujours cpt <= 2n
+// exemple : text = AAAA....AAAAB, pattern = AAAAAAAAAAB, cpt = 2n - (taille du
+// pattern - 2)
