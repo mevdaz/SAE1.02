@@ -273,6 +273,7 @@ class BoyerMooreAlgo {
             diffT = t2 - t1; // in nanoseconds
             System.out.println("Temps d'exécution : " + diffT + " ns");
             System.out.println("Nombre d'opérations (cpt) : " + cpt);
+            System.out.println("Nombre d'opérations/n (cpt/n) : " + (cpt / (double) size));
             System.out.println();
             size = size * 2;
         }
@@ -289,6 +290,7 @@ class BoyerMooreAlgo {
             diffT = t2 - t1; // in nanoseconds
             System.out.println("Temps d'exécution : " + diffT + " ns");
             System.out.println("Nombre d'opérations (cpt) : " + cpt);
+            System.out.println("Nombre d'opérations/n (cpt/n) : " + (cpt / (double) size));
             System.out.println();
             size = size * 2;
         }
@@ -305,6 +307,7 @@ class BoyerMooreAlgo {
             diffT = t2 - t1; // in nanoseconds
             System.out.println("Temps d'exécution : " + diffT + " ns");
             System.out.println("Nombre d'opérations (cpt) : " + cpt);
+            System.out.println("Nombre d'opérations/n (cpt/n) : " + (cpt / (double) size));
             System.out.println();
             size = size * 2;
         }

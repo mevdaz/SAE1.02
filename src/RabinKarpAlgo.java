@@ -1,18 +1,18 @@
 import java.util.ArrayList;
 
 /**
- * Implémentation de l'algorithme de Rabin-Karp pour la recherche de chaînes de caractères.
- * Inclut des tests d'efficacité et des méthodes utilitaires pour générer des textes de test.
+ * Implementation of the Rabin-Karp string-search algorithm.
+ * Includes performance tests and utility methods to generate test texts.
  */
 class RabinKarpAlgo {
 
     /**
-     * Compteur global pour mesurer l'efficacité de l'algorithme.
+     * Global counter to measure the algorithm's performance.
      */
     long cpt;
 
     /**
-     * Méthode principale pour exécuter les tests de l'algorithme Rabin-Karp.
+     * Main method to run tests for the Rabin-Karp algorithm.
      */
     void principal() {
         testRabinKarpAlgo();
@@ -20,10 +20,10 @@ class RabinKarpAlgo {
     }
 
     /**
-     * Implémente l'algorithme de Rabin-Karp pour trouver toutes les occurrences d'un motif dans un texte.
-     * @param texte Le texte dans lequel chercher le motif.
-     * @param pattern Le motif à rechercher.
-     * @return Une liste des indices de début de chaque occurrence du motif dans le texte.
+     * Implements the Rabin-Karp algorithm to find all occurrences of a pattern in a text.
+     * @param texte the text in which to search for the pattern.
+     * @param pattern the pattern to search for.
+     * @return a list of starting indices for each occurrence of the pattern in the text.
      */
     ArrayList<Integer> rabinKarpAlgo(ArrayList<Character> texte, String pattern) {
         ArrayList<Integer> result = new ArrayList<>();
@@ -31,13 +31,13 @@ class RabinKarpAlgo {
         int m = pattern.length();
         if (m == 0 || n < m) return result;
 
-        int base = 256; // taille de l'alphabet
-        int mod = 1000000007; // nombre premier pour éviter les collisions
+        long base = 256L; // taille de l'alphabet
+        long mod = 1000000007L; // prime to reduce collisions
 
-        // Calcul du hash du motif
-        int patternHash = 0;
-        int textHash = 0;
-        int h = 1;
+        // Hash values should be long to avoid overflow during multiplication
+        long patternHash = 0L;
+        long textHash = 0L;
+        long h = 1L;
         cpt = 0;
 
         // Calcul de h = base^(m-1) % mod
@@ -47,8 +47,8 @@ class RabinKarpAlgo {
 
         // Calcul du hash initial du motif et du texte
         for (int i = 0; i < m; i++) {
-            patternHash = (base * patternHash + pattern.charAt(i)) % mod;
-            textHash = (base * textHash + texte.get(i)) % mod;
+            patternHash = (base * patternHash + (int) pattern.charAt(i)) % mod;
+            textHash = (base * textHash + (int) (char) texte.get(i)) % mod;
             cpt++;
         }
 
@@ -71,7 +71,7 @@ class RabinKarpAlgo {
             }
             // Calcul du hash du prochain sous-texte
             if (i < n - m) {
-                textHash = (base * (textHash - texte.get(i) * h) + texte.get(i + m)) % mod;
+                textHash = (base * (textHash - (int) (char) texte.get(i) * h) + (int) (char) texte.get(i + m)) % mod;
                 if (textHash < 0) textHash += mod;
             }
         }
@@ -79,7 +79,7 @@ class RabinKarpAlgo {
     }
 
     /**
-     * Méthode de test pour l'algorithme Rabin-Karp.
+     * Test method for the Rabin-Karp algorithm.
      */
     void testRabinKarpAlgo() {
         // System.out.println("\n----- Tests de l'algorithme de Rabin-Karp : -----\n");
@@ -106,7 +106,7 @@ class RabinKarpAlgo {
     }
 
     /**
-     * Teste un cas spécifique de l'algorithme Rabin-Karp.
+     * Tests a specific case of the Rabin-Karp algorithm.
      */
     void testCasRabinKarpAlgo(ArrayList<Character> texte, String pattern, ArrayList<Integer> resultAttendu) {
         ArrayList<Integer> result = rabinKarpAlgo(texte, pattern);
@@ -129,7 +129,7 @@ class RabinKarpAlgo {
     }
 
     /**
-     * Teste l'efficacité de l'algorithme Rabin-Karp.
+     * Tests the efficiency of the Rabin-Karp algorithm.
      */
     void testRabinKarpAlgoEfficiency() {
         long t1, t2, diffT;
@@ -147,6 +147,7 @@ class RabinKarpAlgo {
             diffT = t2 - t1;
             System.out.println("Temps d'exécution : " + diffT + " ns");
             System.out.println("Nombre d'opérations (cpt) : " + cpt);
+            System.out.println("Nombre d'opérations/n (cpt/n) : " + (cpt / (double) size));
             System.out.println();
             size = size * 2;
         }
@@ -163,6 +164,7 @@ class RabinKarpAlgo {
             diffT = t2 - t1;
             System.out.println("Temps d'exécution : " + diffT + " ns");
             System.out.println("Nombre d'opérations (cpt) : " + cpt);
+            System.out.println("Nombre d'opérations/n (cpt/n) : " + (cpt / (double) size));
             System.out.println();
             size = size * 2;
         }
@@ -179,6 +181,7 @@ class RabinKarpAlgo {
             diffT = t2 - t1;
             System.out.println("Temps d'exécution : " + diffT + " ns");
             System.out.println("Nombre d'opérations (cpt) : " + cpt);
+            System.out.println("Nombre d'opérations/n (cpt/n) : " + (cpt / (double) size));
             System.out.println();
             size = size * 2;
         }
@@ -186,9 +189,9 @@ class RabinKarpAlgo {
     }
 
     /**
-     * Génère un texte aléatoire de la taille spécifiée.
-     * @param size La taille du texte à générer.
-     * @return Une liste de caractères représentant le texte généré.
+     * Generates a random text of the specified size.
+     * @param size the size of the text to generate.
+     * @return a list of characters representing the generated text.
      */
     ArrayList<Character> generateRandomText(int size) {
         char[] alphabet = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r',
@@ -201,9 +204,9 @@ class RabinKarpAlgo {
     }
 
     /**
-     * Génère un texte aléatoire avec un alphabet restreint pour les tests d'efficacité.
-     * @param size La taille du texte à générer.
-     * @return Une liste de caractères représentant le texte généré.
+     * Generates a random text with a restricted alphabet for performance tests.
+     * @param size the size of the text to generate.
+     * @return a list of characters representing the generated text.
      */
     ArrayList<Character> generateSequenceText(int size) {
         char[] alphabet = { 'a', 'b', 'c', 'd'};
@@ -219,10 +222,10 @@ class RabinKarpAlgo {
     }
 
     /**
-     * Génère une séquence de la même lettre de la taille spécifiée pour les tests d'efficacité.
-     * @param size La taille du texte à générer.
-     * @param lettre La lettre à répéter.
-     * @return Une liste de caractères représentant le texte généré.
+     * Generates a sequence of the same letter of the specified size for performance tests.
+     * @param size the size of the text to generate.
+     * @param lettre the letter to repeat.
+     * @return a list of characters representing the generated text.
      */
     ArrayList<Character> generateLettreText(int size, char lettre) {
         ArrayList<Character> text = new ArrayList<>();

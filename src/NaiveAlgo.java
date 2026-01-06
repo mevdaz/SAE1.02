@@ -1,20 +1,20 @@
 import java.util.ArrayList;
 
 /**
- * Implémentation de l'algorithme naïf de recherche de chaîne de caractères.
- * Inclut des tests d'efficacité et des méthodes utilitaires pour générer des textes de test.
+ * Implementation of the naive string-search algorithm.
+ * Includes performance tests and utility methods to generate test texts.
  */
 
 
 class NaiveAlgo {
 
     /**
-     * Compteur global pour mesurer l'efficacité de l'algorithme.
+     * Global counter to measure the algorithm's performance.
      */
     long cpt;
 
     /**
-     * Méthode principale pour exécuter les tests de l'algorithme naïf.
+     * Main method to run tests of the naive algorithm.
      */
     void principal() {
         testNaiveAlgo();
@@ -23,9 +23,9 @@ class NaiveAlgo {
 
 
     /**
-     * Génère un texte aléatoire de la taille spécifiée.
-     * @param size La taille du texte à générer.
-     * @return Une liste de caractères représentant le texte généré.
+     * Generates a random text of the specified size.
+     * @param size the size of the text to generate.
+     * @return a list of characters representing the generated text.
      */
     ArrayList<Character> generateText(int size) {
         char[] alphabet = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r',
@@ -39,10 +39,10 @@ class NaiveAlgo {
 
 
     /**
-     * Implémente l'algorithme naïf pour trouver toutes les occurrences d'un motif dans un texte.
-     * @param text Le texte dans lequel chercher le motif.
-     * @param pattern Le motif à rechercher.
-     * @return Une liste des indices de début de chaque occurrence du motif dans le texte.
+     * Implements the naive algorithm to find all occurrences of a pattern in a text.
+     * @param text the text in which to search for the pattern.
+     * @param pattern the pattern to search for.
+     * @return a list of starting indices for each occurrence of the pattern in the text.
      */
     ArrayList<Integer> naiveAlgo(ArrayList<Character> text, String pattern) {
         ArrayList<Integer> tab = new ArrayList<>();
@@ -63,7 +63,7 @@ class NaiveAlgo {
 
 
     /**
-     * Méthode de test pour l'algorithme naïf.
+     * Test method for the naive algorithm.
      */
     void testNaiveAlgo() {
         System.out.println("Test NaiveAlgo");
@@ -75,9 +75,9 @@ class NaiveAlgo {
 
 
     /**
-     * Teste un cas spécifique de l'algorithme naïf.
-     * @param text Le texte dans lequel chercher le motif.
-     * @param pattern Le motif à rechercher.
+     * Tests a specific case of the naive algorithm.
+     * @param text the text in which to search for the pattern.
+     * @param pattern the pattern to search for.
      */
     void TestCasNaiveAlgo(ArrayList<Character> text, String pattern) {
         System.out.println("Text : " + text);
@@ -87,7 +87,7 @@ class NaiveAlgo {
     }
 
     /**
-     * Teste l'efficacité de l'algorithme naïf (à implémenter).
+     * Tests the efficiency of the naive algorithm.
      */
     void testNaiveAlgoEfficiency() {
         long t1, t2, diffT;
@@ -105,6 +105,7 @@ class NaiveAlgo {
             diffT = t2 - t1; // en nanosecondes
             System.out.println("Temps d'exécution : " + diffT + " ns");
             System.out.println("Nombre d'opérations (cpt) : " + cpt);
+            System.out.println("Nombre d'opérations/n (cpt/n) : " + (cpt / (double) size));
             System.out.println();
             size = size * 2;
         }
@@ -121,6 +122,7 @@ class NaiveAlgo {
             diffT = t2 - t1; // en nanosecondes
             System.out.println("Temps d'exécution : " + diffT + " ns");
             System.out.println("Nombre d'opérations (cpt) : " + cpt);
+            System.out.println("Nombre d'opérations/n (cpt/n) : " + (cpt / (double) size));
             System.out.println();
             size = size * 2;
         }
@@ -137,6 +139,7 @@ class NaiveAlgo {
             diffT = t2 - t1; // en nanosecondes
             System.out.println("Temps d'exécution : " + diffT + " ns");
             System.out.println("Nombre d'opérations (cpt) : " + cpt);
+            System.out.println("Nombre d'opérations/n (cpt/n) : " + (cpt / (double) size));
             System.out.println();
             size = size * 2;
         }
@@ -144,9 +147,9 @@ class NaiveAlgo {
     }
 
     /**
-     * Génère un texte aléatoire avec un alphabet restreint pour les tests d'efficacité.
-     * @param size La taille du texte à générer.
-     * @return Une liste de caractères représentant le texte généré.
+     * Generates a random text with a restricted alphabet for performance tests.
+     * @param size the size of the text to generate.
+     * @return a list of characters representing the generated text.
      */
     ArrayList<Character> generateSequenceText(int size) {
         char[] alphabet = { 'a', 'b', 'c', 'd'};
@@ -162,10 +165,10 @@ class NaiveAlgo {
     }
 
     /**
-     * Génère une séquence de la même lettre de la taille spécifiée pour les tests d'efficacité.
-     * @param size La taille du texte à générer.
-     * @param lettre La lettre à répéter.
-     * @return Une liste de caractères représentant le texte généré.
+     * Generates a sequence of the same letter of the specified size for performance tests.
+     * @param size the size of the text to generate.
+     * @param lettre the letter to repeat.
+     * @return a list of characters representing the generated text.
      */
     ArrayList<Character> generateLettreText(int size, char lettre) {
         ArrayList<Character> text = new ArrayList<>();
