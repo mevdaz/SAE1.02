@@ -260,26 +260,9 @@ class BoyerMooreAlgo {
 
         long t1, t2, diffT;
         System.out.println("----- Tests d'efficacité de l'algorithme de Boyer-Moore : -----\n");
-        int size = 1000;
-        String pattern = "abcde";
-        System.out.println(" -- Texte avec alphabet restreint {a,b,c,d} et motif \"abcde\"\n");
-        for (int i = 1; i <= 6; i++) {
-            ArrayList<Character> texte = generateSequenceText(size);
-            System.out.println("Taille du texte : " + size);
-            cpt = 0; // reset the counter
-            t1 = System.nanoTime();
-            boyerMooreAlgo(texte, pattern);
-            t2 = System.nanoTime();
-            diffT = t2 - t1; // in nanoseconds
-            System.out.println("Temps d'exécution : " + diffT + " ns");
-            System.out.println("Nombre d'opérations (cpt) : " + cpt);
-            System.out.println("Nombre d'opérations/n (cpt/n) : " + (cpt / (double) size));
-            System.out.println();
-            size = size * 2;
-        }
         System.out.println(" -- Texte avec alphabet restreint {a} et motif \"ab\"\n");
-        size = 1000;
-        pattern = "ab";
+        int size = 500000;
+        String pattern = "ab";
         for (int i = 1; i <= 6; i++) {
             ArrayList<Character> texte = generateLettreText(size, 'a');
             System.out.println("Taille du texte : " + size);
@@ -295,7 +278,7 @@ class BoyerMooreAlgo {
             size = size * 2;
         }
         System.out.println(" -- Texte avec alphabet entier aleatoire et motif \"abf\"\n");
-        size = 1000;
+        size = 500000;
         pattern = "abf";
         for (int i = 1; i <= 6; i++) {
             ArrayList<Character> texte = generateRandomText(size);

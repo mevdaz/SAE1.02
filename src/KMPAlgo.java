@@ -152,14 +152,15 @@ class KMPAlgo {
      * for naive string matching algorithms.
      */
     void testKmpAlgoEfficiency() {
-
-        int n = 1000;
-        long t1, t2;
+        int n = 500000;
+        long t1, t2, diffT;
         String pattern = "aaaaaaaaab";
+
+        System.out.println("----- Tests d'efficacité de l'algorithme KMP : -----\n");
+        System.out.println(" -- Texte composé de 'a' répétés puis 'b' et motif \"aaaaaaaaab\"\n");
 
         for (int i = 1; i <= 6; i++) {
 
-            // ArrayList<Character> text = generateText(n);
             ArrayList<Character> text = new ArrayList<>();
             for (int j = 0; j < n; j++) {
                 text.add('a');
@@ -170,14 +171,36 @@ class KMPAlgo {
             t1 = System.nanoTime();
             kmpAlgo(text, pattern);
             t2 = System.nanoTime();
+            diffT = t2 - t1;
 
-            System.out.println("\nKMP n = " + n);
-            System.out.println("Temps = " + (t2 - t1));
-            System.out.println("Comparaisons = " + cpt);
-            System.out.println("cpt / n ≈ " + (double) cpt / n);
+            System.out.println("Taille du texte : " + n);
+            System.out.println("Temps d'exécution : " + diffT + " ns");
+            System.out.println("Nombre d'opérations (cpt) : " + cpt);
+            System.out.println("Nombre d'opérations/n (cpt/n) : " + (cpt / (double) n));
+            System.out.println();
 
             n *= 2;
         }
+        System.out.println(" -- Texte avec alphabet entier aléatoire et motif \"abf\"\n");
+        n = 500000;
+        pattern = "abf";
+        for (int i = 1; i <= 6; i++) {
+            ArrayList<Character> texte = generateText(n);
+
+            System.out.println("Taille du texte : " + n);
+            cpt = 0;
+            t1 = System.nanoTime();
+            kmpAlgo(texte, pattern);
+            t2 = System.nanoTime();
+            diffT = t2 - t1;
+            System.out.println("Temps d'exécution : " + diffT + " ns");
+            System.out.println("Nombre d'opérations (cpt) : " + cpt);
+            System.out.println("Nombre d'opérations/n (cpt/n) : " + (cpt / (double) n));
+            System.out.println();
+
+            n = n * 2;
+        }
+        System.out.println("--------------------------------------------------");
     }
 
 }
