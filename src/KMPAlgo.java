@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 class KMPAlgo {
 
-    int cpt = 0;
+    long cpt;
 
     /**
      * Main method that launches all tests.
@@ -123,10 +123,10 @@ class KMPAlgo {
         System.out.println("Test KMPAlgo");
 
         ArrayList<Character> text1 = generateText(100);
-        TestCasKmpAlgo(text1, "t");
+        testCasKmpAlgo(text1, "t");
 
         ArrayList<Character> text2 = generateText(100);
-        TestCasKmpAlgo(text2, "ta");
+        testCasKmpAlgo(text2, "ta");
     }
 
     /**
@@ -136,7 +136,7 @@ class KMPAlgo {
      * @param text    the text to analyze
      * @param pattern the pattern to search for
      */
-    void TestCasKmpAlgo(ArrayList<Character> text, String pattern) {
+    void testCasKmpAlgo(ArrayList<Character> text, String pattern) {
         System.out.println("Text generé aleatoirement : ");
         System.out.println("Pattern : " + pattern);
 
