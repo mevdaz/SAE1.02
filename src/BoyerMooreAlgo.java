@@ -35,41 +35,50 @@ class BoyerMooreAlgo {
             shift = 1;
         } else {
             int uLen = m - (j + 1);
-            // Rule 1: Search for another occurrence of u preceded by a character different from pattern[j]
+
+            // Rule 1: Search for another occurrence of u preceded by a character
+            // different from pattern[j]
             for (int k = j - uLen; k >= 0; k--) {
+
                 boolean match = true;
+
                 for (int l = 0; l < uLen; l++) {
                     if (pattern.charAt(k + l) != pattern.charAt(j + 1 + l)) {
                         match = false;
-                        break;
                     }
                 }
-                if (match) {
+
+                if (match && shift == m) {
                     if (k == 0 || pattern.charAt(k - 1) != pattern.charAt(j)) {
                         shift = j - k + 1;
-                        break;
                     }
                 }
             }
-            // Rule 2: Search for the longest prefix of the pattern that is also a suffix of u
+
+            // Rule 2: Search for the longest prefix of the pattern
+            // that is also a suffix of u
             if (shift == m && uLen > 0) {
+
                 for (int z = uLen; z > 0; z--) {
+
                     boolean prefixMatch = true;
+
                     for (int l = 0; l < z; l++) {
                         if (pattern.charAt(l) != pattern.charAt(m - z + l)) {
                             prefixMatch = false;
-                            break;
                         }
                     }
-                    if (prefixMatch) {
+
+                    if (prefixMatch && shift == m) {
                         shift = m - z;
-                        break;
                     }
                 }
             }
         }
+
         return shift;
     }
+
 
     /**
      * Computes the shift to apply according to the bad character rule.
@@ -95,27 +104,27 @@ class BoyerMooreAlgo {
     
     /**
      * Implements the Boyer-Moore algorithm to find all occurrences of a pattern in a text.
-     * @param texte The text in which to search for the pattern.
+     * @param text The text in which to search for the pattern.
      * @param pattern The pattern to search for.
      * @return A list of start indices for each occurrence of the pattern in the text.
      */
-    ArrayList<Integer> boyerMooreAlgo(ArrayList<Character> texte, String pattern) {
+    ArrayList<Integer> boyerMooreAlgo(ArrayList<Character> text, String pattern) {
 
         ArrayList<Integer> result = new ArrayList<>();
         int indPattern = 0;
         int indFinPattern = pattern.length() - 1;
-        while (indFinPattern < texte.size()) {
+        while (indFinPattern < text.size()) {
             int j = pattern.length() - 1;
-            while (j >= 0 && texte.get(indPattern + j) == pattern.charAt(j)) {
+            while (j >= 0 && text.get(indPattern + j) == pattern.charAt(j)) {
                 j--;
             }
             cpt++; // increment the counter
             if (j < 0) {
-                result.add(indPattern);
+                result.add(indPattern+1); // 1st occurrence at index 1
                 indPattern += 1;
                 indFinPattern = indPattern + pattern.length() - 1;
             } else {
-                int d1 = decalage(pattern, texte.get(indPattern + j), j);
+                int d1 = decalage(pattern, text.get(indPattern + j), j);
                 int d2 = calculDecalageBonSuffixe(pattern, j);
                 int decale = Math.max(d1, d2);
                 indPattern += decale;
@@ -178,13 +187,13 @@ class BoyerMooreAlgo {
 
     /**
      * Tests a specific case of the Boyer-Moore algorithm.
-     * @param texte The text in which to search for the pattern.
+     * @param text The text in which to search for the pattern.
      * @param pattern The pattern to search for.
      * @param resultAttendu The expected list of indices for the pattern occurrences.
      */
-    void testCasBoyerMooreAlgo(ArrayList<Character> texte, String pattern, ArrayList<Integer> resultAttendu) {
-        
-        ArrayList<Integer> result = boyerMooreAlgo(texte, pattern);
+    void testCasBoyerMooreAlgo(ArrayList<Character> text, String pattern, ArrayList<Integer> resultAttendu) {
+
+        ArrayList<Integer> result = boyerMooreAlgo(text, pattern);
 
         boolean equals = true;
         if (result.size() != resultAttendu.size()) {
