@@ -84,11 +84,11 @@ class NaiveAlgo {
         for (int i = 1; i <= 6; i++) {
             ArrayList<Character> texte = generateLettreText(size, 'a');
             System.out.println("Taille du texte : " + size);
-            cpt = 0; // reset le compteur
+            cpt = 0; // reset the compteur
             t1 = System.nanoTime();
             naiveAlgo(texte, pattern);
             t2 = System.nanoTime();
-            diffT = t2 - t1; // en nanosecondes
+            diffT = t2 - t1; // in nanosecondes
             System.out.println("Temps d'exécution : " + diffT + " ns");
             System.out.println("Nombre d'opérations (cpt) : " + cpt);
             System.out.println("Nombre d'opérations/n (cpt/n) : " + (cpt / (double) size));
@@ -101,11 +101,11 @@ class NaiveAlgo {
         for (int i = 1; i <= 6; i++) {
             ArrayList<Character> texte = generateText(size);
             System.out.println("Taille du texte : " + size);
-            cpt = 0; // reset le compteur
+            cpt = 0; // reset the compteur
             t1 = System.nanoTime();
             naiveAlgo(texte, pattern);
             t2 = System.nanoTime();
-            diffT = t2 - t1; // en nanosecondes
+            diffT = t2 - t1; // in nanosecondes
             System.out.println("Temps d'exécution : " + diffT + " ns");
             System.out.println("Nombre d'opérations (cpt) : " + cpt);
             System.out.println("Nombre d'opérations/n (cpt/n) : " + (cpt / (double) size));

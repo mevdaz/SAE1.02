@@ -35,7 +35,7 @@ class RabinKarpAlgo {
         if (m == 0 || n < m)
             return result;
 
-        long base = 256L; // taille de l'alphabet
+        long base = 256L; // size of the alphabet
         long mod = 1000000007L; // prime to reduce collisions
 
         // Hash values should be long to avoid overflow during multiplication
@@ -44,22 +44,22 @@ class RabinKarpAlgo {
         long h = 1L;
         cpt = 0;
 
-        // Calcul de h = base^(m-1) % mod
+        // Calcul of h = base^(m-1) % mod
         for (int i = 0; i < m - 1; i++) {
             h = (h * base) % mod;
         }
 
-        // Calcul du hash initial du motif et du texte
+        // Calcul of the hash initial of the motif and the texte
         for (int i = 0; i < m; i++) {
             patternHash = (base * patternHash + (int) pattern.charAt(i)) % mod;
             textHash = (base * textHash + (int) (char) text.get(i)) % mod;
             cpt++;
         }
 
-        // Recherche du motif dans le texte
+        // research of the pattern in the text
         for (int i = 0; i <= n - m; i++) {
             cpt++;
-            // Si les hash sont égaux, vérifier caractère par caractère
+            // if the hash values match, check character by character
             if (patternHash == textHash) {
                 boolean match = true;
                 for (int j = 0; j < m; j++) {
@@ -72,7 +72,7 @@ class RabinKarpAlgo {
                     result.add(i+1); // 1st occurrence at index 1
                 }
             }
-            // Calcul du hash du prochain sous-texte
+            // Calcul of the hash of the next substring
             if (i < n - m) {
                 textHash = (base * (textHash - (int) (char) text.get(i) * h) + (int) (char) text.get(i + m)) % mod;
                 if (textHash < 0)
