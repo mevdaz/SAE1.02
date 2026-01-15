@@ -64,7 +64,7 @@ class KMPAlgo {
                 j++;
 
                 if (j == m) {
-                    result.add(i - j);
+                    result.add(i - j + 1); // store the index of the occurrence
                     j = pi[j - 1];
                 }
             } else {

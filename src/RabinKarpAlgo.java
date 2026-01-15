@@ -69,7 +69,7 @@ class RabinKarpAlgo {
                     }
                 }
                 if (match) {
-                    result.add(i);
+                    result.add(i+1); // 1st occurrence at index 1
                 }
             }
             // Calcul du hash du prochain sous-texte

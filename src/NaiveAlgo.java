@@ -40,7 +40,7 @@ class NaiveAlgo {
                     j++;
                 }
                 if (j == pattern.length()) {
-                    tab.add(i);
+                    tab.add(i+1); // 1st occurrence at index 1
                 }
             }
         }
